@@ -16,17 +16,11 @@ def strip_end(text: str, suffix: str) -> str:
 
 class ActionModule(ActionBase):
 
-    def _does_remote_directory_exist(
-        self, path: str, task_vars, follow_symlinks=True
-    ) -> bool:
-        stats = self._execute_remote_stat(
-            path, all_vars=task_vars, follow=follow_symlinks
-        )
+    def _does_remote_directory_exist(self, path: str, task_vars, follow_symlinks=True) -> bool:
+        stats = self._execute_remote_stat(path, all_vars=task_vars, follow=follow_symlinks)
         return stats["exists"] and stats["isdir"]
 
-    def _run_template_action(
-        self, src: str, dest: str, tmp=None, task_vars=None
-    ) -> dict:
+    def _run_template_action(self, src: str, dest: str, tmp=None, task_vars=None) -> dict:
         template_task = self._task.copy()
         template_task.args["src"] = src
         template_task.args["dest"] = dest
@@ -107,9 +101,7 @@ class ActionModule(ActionBase):
         dest_dirs = [os.path.dirname(x[1]) for x in template_files]
         for dest_dir in list(set(dest_dirs)):
             if not self._does_remote_directory_exist(dest_dir, task_vars):
-                update_result_from_task(
-                    self._create_directory(dest_dir, task_vars=task_vars)
-                )
+                update_result_from_task(self._create_directory(dest_dir, task_vars=task_vars))
                 if result["failed"]:
                     return result
 
