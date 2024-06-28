@@ -28,7 +28,7 @@ class ActionModule(ActionBase):
         if "new_dir_mode" in template_task.args:
             del template_task.args["new_dir_mode"]
         template_action = action_loader.get(
-            "unity.template.template",
+            "unity.template_multi_diff.template",
             task=template_task,
             connection=self._connection,
             play_context=self._play_context,
