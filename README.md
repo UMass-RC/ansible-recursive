@@ -2,11 +2,12 @@ recursively calls `copy` or `template` using files in a local directory.
 
 The builtin ansible `copy` action plugin does have recursive support, but it has some downsides:
 
-* source path must end in slash
-* the same owner/group/mode must be used for all files
-* any existing remote directories will have their permissions preserved, which means that the same task may produce different results on different remote hosts
-* [dubious permissions](https://ansible.readthedocs.io/projects/lint/rules/risky-octal/) are allowed
-* the `stat` module is called once for each file, which is slow
+* required that the source path ends in a slash
+* preserves owner/group/mode on any existing remote directories, which means that the same task may produce different results on different remote hosts
+* allows owner/group/mode to be undefined, which means that the same task may produce different results on different remote hosts
+* uses the same owner/group/mode for all files
+* allows [dubious permissions](https://ansible.readthedocs.io/projects/lint/rules/risky-octal/)
+* calls the `stat` module once for each file, which is slow
 
 The builtin ansible `synchronize` action plugin can also do recursive copies, but its diff output does not contain the actual changes made, only a list of files that were changed.
 
