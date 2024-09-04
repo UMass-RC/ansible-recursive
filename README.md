@@ -18,7 +18,8 @@ required arguments:
   group: posix group name
   mode: |
     posix permissions. a string containing four digits between 0 and 7.
-    in most use cases, the first digit is 0.
+    in most use cases, the first digit is 0. A leading zero does **not** denote an octal number
+    like in yaml number syntax, it represents special permissions like setuid.
     all files in the tree will have these permissions, unless an override is specified.
   parent_dirs_mode: |
     same syntax as mode.
