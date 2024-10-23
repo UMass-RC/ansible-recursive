@@ -184,7 +184,7 @@ class ActionModule(ActionBase):
                 args[arg_name] = {}
         for arg_name in ["mode_overrides", "owner_overrides", "group_overrides"]:
             for override, paths in args[arg_name].items():
-                args[arg_name] = {override: [x.rstrip("/") for x in paths]}
+                args[arg_name][override] = [x.rstrip("/") for x in paths]
 
         src_dest_tuples = []
         for dirpath, dirnames, filenames in os.walk(args["src_root"]):
