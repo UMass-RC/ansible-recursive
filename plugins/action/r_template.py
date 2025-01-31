@@ -204,7 +204,7 @@ class ActionModule(ActionBase):
                 src_dest_tuples.append((full_src_path, dest_path))
 
         if len(src_dest_tuples) == 0:
-            return self.result
+            return _result_failed("source tree must not be empty!")
 
         destination_files = [x[1] for x in src_dest_tuples]
         # parent directories first
