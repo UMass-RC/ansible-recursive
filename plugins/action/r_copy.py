@@ -194,6 +194,9 @@ class ActionModule(ActionBase):
                 dest_path = os.path.join("/", relative_src_path)
                 src_dest_tuples.append((full_src_path, dest_path))
 
+        if len(src_dest_tuples) == 0:
+            return self.result
+
         destination_files = [x[1] for x in src_dest_tuples]
         # parent directories first
         destination_dirs = sorted(_get_all_parent_dirs(destination_files), key=len)
